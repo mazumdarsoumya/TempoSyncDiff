@@ -17,14 +17,14 @@ TempoSyncDiff explores whether **diffusion models can be distilled into efficien
 
 # 🔗 Project Links
 
-* **Paper (arXiv DOI)**  
-  https://doi.org/10.48550/arXiv.2603.06057
+* **Paper (arXiv)**  
+  [arXiv:2603.06057v1](https://doi.org/10.48550/arXiv.2603.06057)
 
 * **GitHub Repository**  
-  https://github.com/mazumdarsoumya/TempoSyncDiff
+  [https://github.com/mazumdarsoumya/TempoSyncDiff](https://github.com/mazumdarsoumya/TempoSyncDiff.git)
 
 * **Project Page**  
-  https://mazumdarsoumya.github.io/TempoSyncDiff
+  [https://mazumdarsoumya.github.io/TempoSyncDiff](https://mazumdarsoumya.github.io/TempoSyncDiff)
 
 ---
 
