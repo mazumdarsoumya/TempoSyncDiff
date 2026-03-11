@@ -1,0 +1,46 @@
+TempoSyncDiff Dataset Download and Setup Notes
+=============================================
+
+LRS3 (official Oxford VGG source)
+------------------------------------
+
+Official page:
+https://www.robots.ox.ac.uk/~vgg/data/lip_reading/
+
+What to do:
+1. Open the official Oxford VGG lip reading dataset page.
+2. Go to the "Download" section.
+3. Select the LRS3 (TED) dataset entry.
+4. Download the official LRS3 files from that page.
+5. Extract the downloaded content into the repository under:
+
+   data/lrs3/
+
+Expected project-side target layout:
+data/lrs3/
+└── <talk_id>/
+    ├── 00001.mp4
+    ├── 00001.txt
+    ├── 00002.mp4
+    ├── 00002.txt
+    └── ...
+
+After extraction, build manifests:
+
+macOS / Linux:
+python scripts/build_lrs3_manifest.py \
+  --root data/lrs3 \
+  --out_dir data/manifests \
+  --viseme_root data/visemes/lrs3 \
+  --val_ratio 0.01 \
+  --test_ratio 0.01 \
+  --seed 123
+
+Windows PowerShell:
+python scripts/build_lrs3_manifest.py `
+  --root data/lrs3 `
+  --out_dir data/manifests `
+  --viseme_root data/visemes/lrs3 `
+  --val_ratio 0.01 `
+  --test_ratio 0.01 `
+  --seed 123

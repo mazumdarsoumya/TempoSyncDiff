@@ -1,0 +1,56 @@
+#/home/vineet/PycharmProjects/TempoSyncDiff/configs/train_teacher_lrs3.yaml
+
+seed: 123
+device: "cuda"
+out_dir: "results"
+
+data:
+  type: "manifest"
+  manifest: "data/manifests/lrs3_train.jsonl"
+  image_size: 224
+  num_frames: 50
+  normalize: "0_1"
+  ref_mode: "first"
+  augment: true
+
+data_val:
+  type: "manifest"
+  manifest: "data/manifests/lrs3_val.jsonl"
+  image_size: 224
+  num_frames: 50
+  normalize: "0_1"
+  ref_mode: "first"
+  augment: false
+
+model:
+  latent_dim: 64
+
+train:
+  batch_size: 16
+  val_batch_size: 16
+  lr: 1.0e-4
+  amp: false
+
+  # training length + early stop
+  epochs: 1000
+  patience: 8
+  min_delta: 1.0e-4
+  val_every: 1
+  val_batches: 50
+
+  # print control
+
+
+  # IMPORTANT:
+  # For "start from epoch 1" keep resume_ckpt empty.
+  resume_ckpt: ""
+  # If you want to warm-start weights, set warm_start_ckpt to a file path.
+  warm_start_ckpt: "results/checkpoints/teacher_warm_merged.pt"
+
+  # ---- FIX: weights + pretrained VAE ----
+  w_id: 0.0        # IMPORTANT: disable identity loss (until you use a real pretrained face-id net)
+  w_temp: 0.1      # small temporal regularizer
+  w_sync: 0.0      # keep off unless you actually condition on visemes/audio
+  w_rec: 1.0       # reconstruction loss to prevent black collapse
+
+  vae_ckpt: "results/checkpoints/vae_pretrained.pt"

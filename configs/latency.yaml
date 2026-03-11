@@ -1,0 +1,7 @@
+seed: 123
+device: "cuda"
+out_dir: "results"
+student_ckpt: "results/checkpoints/student.pt"
+benchmark:
+  warmup: 10
+  iters: 50

@@ -1,0 +1,45 @@
+seed: 123
+device: "cuda"
+out_dir: "results/student_distill_lrs3"
+
+teacher_ckpt: "results/checkpoints/teacher_best.pt"
+
+data:
+  type: "manifest"
+  manifest: "data/manifests/lrs3_train.jsonl"
+  image_size: 224
+  num_frames: 50
+  normalize: "minus1_1"
+  ref_mode: "first"
+  augment: true
+
+data_val:
+  type: "manifest"
+  manifest: "data/manifests/lrs3_val.jsonl"
+  image_size: 224
+  num_frames: 50
+  normalize: "minus1_1"
+  ref_mode: "first"
+  augment: false
+
+student:
+  steps: 8
+
+train:
+  batch_size: 16
+  val_batch_size: 16
+  lr: 1.0e-4
+  amp: false
+
+  epochs: 500
+  patience: 8
+  min_delta: 1.0e-4
+  val_every: 1
+  val_batches: 50
+
+  # IMPORTANT: disable step printing
+  log_every: 0
+
+  # resume vs warm-start:
+  resume_ckpt: ""
+  warm_start_ckpt: ""

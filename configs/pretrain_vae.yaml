@@ -1,0 +1,19 @@
+seed: 123
+device: "cuda"
+out_dir: "results/vae_pretrain"
+
+latent_dim: 64
+lr: 1.0e-4
+batch_size: 8
+epochs: 5
+num_workers: 4
+log_every: 200
+
+data:
+  type: "manifest"
+  manifest: "data/manifests/lrs3_train.jsonl"
+  image_size: 224
+  num_frames: 50
+  normalize: "minus1_1"   # OK: script auto-converts to 0..1 for training VAE
+  ref_mode: "first"
+  augment: false

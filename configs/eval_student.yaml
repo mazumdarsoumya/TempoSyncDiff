@@ -1,0 +1,36 @@
+seed: 123
+device: cuda
+out_dir: results/eval_student
+teacher_ckpt: results/checkpoints/teacher.pt
+data:
+  type: manifest
+  manifest: data/manifests/lrs3_train.jsonl
+  image_size: 224
+  num_frames: 50
+  normalize: minus1_1
+  ref_mode: first
+  augment: true
+data_val:
+  type: manifest
+  manifest: data/manifests/lrs3_val.jsonl
+  image_size: 224
+  num_frames: 50
+  normalize: minus1_1
+  ref_mode: first
+  augment: false
+train:
+  batch_size: 32
+  val_batch_size: 32
+  lr: 0.001
+  amp: true
+  epochs: 1000
+  patience: 8
+  min_delta: 0.0001
+  val_every: 1
+  val_batches: 50
+  log_every: 0
+  resume_ckpt: ''
+  warm_start_ckpt: ''
+student:
+  steps: 8
+student_ckpt: results/checkpoints/student.pt

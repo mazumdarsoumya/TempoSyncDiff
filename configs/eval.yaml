@@ -1,0 +1,7 @@
+seed: 123
+device: "cuda"
+out_dir: "results"
+teacher_ckpt: "results/checkpoints/teacher.pt"
+student_ckpt: "results/checkpoints/student.pt"
+eval:
+  num_samples: 16

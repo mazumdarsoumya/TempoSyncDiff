@@ -1,0 +1,108 @@
+TempoSyncDiff Dataset Download and Setup Notes
+=============================================
+
+1) HDTF (official reconstruction route from the authors' repository)
+------------------------------------
+
+Official repository:
+https://github.com/MRzzm/HDTF
+
+Recommended first step:
+git clone https://github.com/MRzzm/HDTF.git
+
+What the official HDTF repository provides:
+- xx_video_url.txt
+- xx_resolution.txt
+- xx_annotion_time.txt
+- xx_crop_wh.txt
+- xx_crop_ratio.txt
+
+These files tell you:
+- which source YouTube video belongs to each sequence
+- which resolution was used in the original method
+- the talking-head timestamps to cut
+- crop window parameters
+- crop expansion ratio
+
+Official reconstruction workflow:
+1. Clone or download the official HDTF repository.
+2. Use xx_video_url.txt to collect the source videos from the listed YouTube URLs.
+3. Convert each video to .mp4 if needed.
+4. If any source is interlaced, convert it to progressive format.
+5. Use xx_annotion_time.txt to split each long video into talking-head clips.
+6. Name clips exactly as:
+
+   <video_name>_<clip_index>.mp4
+
+   Example:
+   Radio11_0.mp4
+   Radio11_1.mp4
+
+7. Choose one of the two official cropping routes:
+
+   Route A:
+   - Download the video at the reference resolution in xx_resolution.txt
+   - Crop the face region using xx_crop_wh.txt
+
+   Route B:
+   - Download the best available resolution
+   - Detect the face/landmarks in the split clips
+   - Merge the per-frame face area into one square crop region
+   - Enlarge the crop region using xx_crop_ratio.txt
+   - Crop the face region
+
+8. Resize the final cropped clips to:
+
+   512 x 512
+
+9. Put the processed HDTF clips into:
+
+   data/hdtf/
+
+Suggested project-side layout:
+data/hdtf/
+└── processed/
+    ├── <video_name>_0.mp4
+    ├── <video_name>_1.mp4
+    └── ...
+
+Important note:
+The official HDTF repository mainly provides metadata plus processing instructions. It is not a simple one-command public ZIP in the same style as many benchmark datasets. You reconstruct the dataset by following the provided metadata files and processing steps.
+
+
+3) Optional related HDTF request route
+--------------------------------------
+
+A related package named HDTF_TFHP is referenced here:
+https://github.com/DiffPoseTalk/DiffPoseTalk/blob/main/datasets/HDTF_TFHP/README.md
+
+That page says a contact/request form is used for access. If that specific package is needed instead of the standard HDTF reconstruction route, follow the request process mentioned there.
+
+
+4) After dataset placement
+--------------------------
+
+Once LRS3 is placed:
+- build manifests
+- pretrain VAE
+- train teacher
+- distill student
+- run inference
+- run evaluation
+
+Main commands:
+
+Pretrain VAE:
+python scripts/pretrain_vae.py --config configs/pretrain/tinyvae_lrs3.yaml
+
+Train teacher:
+python scripts/train_teacher.py --config configs/train/teacher_lrs3.yaml
+
+Distill student:
+python scripts/distill_student.py --config configs/train/student_distill_lrs3.yaml
+
+Inference:
+python scripts/infer_student.py --config configs/infer/student_infer.yaml
+
+Evaluation:
+python scripts/evaluate.py --config configs/eval/denoise_eval.yaml

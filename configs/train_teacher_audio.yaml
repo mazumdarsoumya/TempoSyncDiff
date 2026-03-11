@@ -1,0 +1,41 @@
+seed: 123
+device: cuda
+out_dir: results_xid_teacher_audio_warm_2026-03-03_133519
+data:
+  type: manifest
+  manifest: data/manifests/lrs3_train.jsonl
+  image_size: 224
+  num_frames: 50
+  normalize: '0_1'
+  ref_mode: mismatched
+  augment: true
+  mismatch_fraction: 0.5
+  mismatch_ref_pick: first
+data_val:
+  type: manifest
+  manifest: data/manifests/lrs3_val.jsonl
+  image_size: 224
+  num_frames: 50
+  normalize: '0_1'
+  ref_mode: first
+  augment: false
+model:
+  latent_dim: 64
+train:
+  batch_size: 16
+  val_batch_size: 16
+  lr: 2.0e-05
+  amp: false
+  epochs: 500
+  patience: 8
+  min_delta: 5.0e-05
+  val_every: 1
+  val_batches: 50
+  resume_ckpt: ''
+  warm_start_ckpt: results_xid_teacher_audio_ft/checkpoints/teacher_best.pt
+  w_id: 0.0
+  w_temp: 0.1
+  w_sync: 0.0
+  w_rec: 1.0
+  vae_ckpt: results/checkpoints/vae_pretrained.pt
+  log_every: 0

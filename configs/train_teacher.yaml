@@ -1,0 +1,32 @@
+train:
+  epochs: 2000
+  lr: 5.0e-5
+  batch_size: 8
+  amp: true
+
+  # early stopping
+  patience: 8
+  min_delta: 1.0e-4
+  val_every: 1
+  val_batches: 50      # evaluate only 50 val batches per epoch (fast)
+
+  # resume
+  resume_ckpt: "results/checkpoints/teacher_last.pt"
+
+data:
+  type: manifest
+  manifest: "datasets/manifests_final/lrs3_train.jsonl"
+  image_size: 224
+  num_frames: 50
+  normalize: "0_1"
+  ref_mode: "first"
+  augment: true
+
+data_val:
+  type: manifest
+  manifest: "datasets/manifests_final/lrs3_val.jsonl"
+  image_size: 224
+  num_frames: 50
+  normalize: "0_1"
+  ref_mode: "first"
+  augment: false

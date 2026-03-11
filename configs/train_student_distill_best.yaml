@@ -1,0 +1,49 @@
+seed: 123
+device: "cuda"
+out_dir: "results_student"
+
+teacher_ckpt: "results/checkpoints/teacher_best.pt"
+
+data:
+  type: "manifest"
+  manifest: "data/manifests/lrs3_train.jsonl"
+  image_size: 224
+  num_frames: 50
+  normalize: "minus1_1"
+  ref_mode: "first"
+  augment: true
+
+data_val:
+  type: "manifest"
+  manifest: "data/manifests/lrs3_val.jsonl"
+  image_size: 224
+  num_frames: 50
+  normalize: "minus1_1"
+  ref_mode: "first"
+  augment: false
+
+student:
+  steps: 8
+
+train:
+  batch_size: 16
+  val_batch_size: 16
+  lr: 1.0e-4
+  amp: false
+
+  epochs: 500
+  patience: 12
+  min_delta: 1.0e-6
+  val_every: 1
+  val_batches: 50
+  log_every: 0
+
+  # (choose ONE of these modes below)
+
+  # MODE-1: Resume from previous student_last.pt (continue training)
+  resume_ckpt: "results_student/checkpoints/student_last.pt"
+  warm_start_ckpt: ""
+
+  # MODE-2: Restart from epoch 1 but initialize from student_best.pt
+  # resume_ckpt: ""
+  # warm_start_ckpt: "results_student/checkpoints/student_best.pt"

@@ -1,0 +1,19 @@
+#/home/vineet/PycharmProjects/TempoSyncDiff/configs/infer_realtime.yaml
+
+seed: 123
+device: "cuda"
+
+# checkpoint
+student_ckpt: "results/checkpoints/student.pt"
+
+# REQUIRED (fixes your KeyError)
+ref_image: "data/examples/vkr.jpg"
+
+# output
+out_dir: "results/infer_student"
+
+# common knobs (keep if your script uses them)
+image_size: 224
+num_frames: 50
+fps: 25
+steps: 1

@@ -1,0 +1,12 @@
+seed: 123
+device: "cuda"
+
+student_ckpt: "results_student/checkpoints/student_best.pt"
+ref_image: "data/examples/vkr.jpg"
+
+out_dir: "results/infer_student_best"
+image_size: 224
+frames: 50
+fps: 25
+steps: 1
+normalize: "minus1_1"

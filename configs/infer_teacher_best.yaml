@@ -1,0 +1,10 @@
+seed: 123
+device: "cuda"
+teacher_ckpt: "results/checkpoints/teacher.pt"
+ref_image: "data/examples/vkr.jpg"
+out_dir: "results/infer_teacher_best"
+image_size: 224
+num_frames: 50
+fps: 25
+steps: 1
+normalize: "minus1_1"
