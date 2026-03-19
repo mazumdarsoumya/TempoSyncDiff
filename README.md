@@ -1,9 +1,10 @@
 <div align="center">
 
 # TempoSyncDiff
-
 ### Distilled Temporally-Consistent Diffusion for Low-Latency Audio-Driven Talking Head Generation
-
+  <a href="https://arxiv.org/abs/2603.06057">
+    <img src="https://img.shields.io/badge/arXiv-2603.06057-b31b1b.svg" alt="arXiv">
+  </a>
 </div>
 
 Welcome.
